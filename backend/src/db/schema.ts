@@ -33,7 +33,7 @@ export const products = pgTable("products", {
   imageKitFileId: text("image_kit_file_id"),
   active: boolean("active").notNull().default(true),
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
-});
+}); 
 
 export const checkoutSessions = pgTable("checkout_sessions", {
   id: uuid("id").defaultRandom().primaryKey(),
