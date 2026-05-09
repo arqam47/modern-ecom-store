@@ -1,9 +1,11 @@
-import express from 'express'
+import express, { NextFunction, Request, Response } from 'express'
 import cors from 'cors'
 import 'dotenv/config'
 
 import fs from 'node:fs'
 import path from 'node:path'
+
+import * as Sentry from '@sentry/node'
 
 import { clerkMiddleware } from '@clerk/express'
 import { clerkWebhookHandler } from './webhooks/clerk'
@@ -15,6 +17,7 @@ import productRouter from './routes/productRouter'
 import streamRouter from './routes/streamRouter'
 import checkoutRouter from './routes/checkoutRouter'
 import { polarWebhookHandler } from './webhooks/polar'
+import { SentryClerkUserMiddleware } from './middleware/sentryClerkUser'
 
 
 const env = getEnv()
@@ -33,6 +36,7 @@ app.post('/webhooks/polar', rawJson, (req,res) => {
 app.use(express.json())
 app.use(cors())
 app.use(clerkMiddleware())
+app.use(SentryClerkUserMiddleware)
 
 app.get('/health', (_req,res) => {
     res.json({ ok: true })
@@ -61,6 +65,15 @@ if(fs.existsSync(publicDir)) {
         res.sendFile(path.join(publicDir, 'index.html'), (err) => next(err))
     })
 }
+
+app.use((_err: unknown, _req: Request, res: Response, _next: NextFunction) => {
+    const sentryId = (res as Response & { sentry?: string }).sentry
+
+    res.status(500).json({
+        error: 'Internal Server Error',
+        ...(sentryId !== undefined && { sentryId })
+    })
+})
 
 app.listen(env.PORT, () => {
     console.log('listening on port:', env.PORT)
