@@ -8,7 +8,6 @@ import { orderItems, products } from "../db/schema";
 import { db } from "../db";
 import { count, desc, eq } from "drizzle-orm";
 import z from "zod";
-import { error } from "console";
 import { deleteImageKitAsset } from "../lib/imageKit";
 
 const env = getEnv()
@@ -66,7 +65,7 @@ export async function requireAdmin(req: Request, res: Response, next: NextFuncti
     }
 }
 
-export async function getImageKitAuth(req: Request, res: Response, next: NextFunction) {
+export async function getImageKitAuth(_req: Request, res: Response, next: NextFunction) {
     try {
         const client = new ImageKit({ privateKey: env.IMAGEKIT_PRIVATE_KEY })
 
@@ -82,7 +81,7 @@ export async function getImageKitAuth(req: Request, res: Response, next: NextFun
     }
 }
 
-export async function listAdminProducts(req: Request, res: Response, next: NextFunction) {
+export async function listAdminProducts(_req: Request, res: Response, next: NextFunction) {
     try {
         const rows = await db.select().from(products).orderBy(desc(products.createdAt))
         res.json({ products: rows })
