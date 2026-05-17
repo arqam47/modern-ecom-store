@@ -44,11 +44,11 @@ createRoot(document.getElementById('root')).render(
     <ClerkProvider>
       <SentryUserSync />
       <QueryClientProvider client={queryClient}>
-        <BrowerRouter>
+        <BrowserRouter>
           <Sentry.ErrorBoundary fallback={<SentryErrorFallback />}>
             <App />
           </Sentry.ErrorBoundary>
-        </BrowerRouter>
+        </BrowserRouter>
       </QueryClientProvider>
     </ClerkProvider>
   </StrictMode>
