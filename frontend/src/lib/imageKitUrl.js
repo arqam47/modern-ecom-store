@@ -1,19 +1,3 @@
-// Image optimization is very important for any web application.
-// Optimized images load faster, consume less bandwidth, and improve the overall user experience.
-// On the other hand, unoptimized images load slowly, degrade user experience, increase bounce rates, and negatively impact your business.
-
-// Main idea: the database stores one original image URL, then this file creates optimized versions for different places in the UI.
-
-// Examples:
-
-// catalog card needs a medium image
-// cart needs a small thumbnail
-// product page needs a bigger image
-// admin table needs a tiny preview
-
-// Instead of uploading many image sizes, ImageKit can transform the image through the URL.
-// We keep one original image URL in the database; our app uses a lightweight optimization URL, and we show a transformation here.
-
 /**
  * Text overlay (brand watermark). Chained after base transforms with ":".
  * @see https://imagekit.io/docs/add-overlays-on-images
@@ -129,10 +113,6 @@ export function imageKitOptimizedUrl (url, opts = {}) {
   }
 }
 
-/**
- * Same optimizations as {@link imageKitOptimizedUrl} plus Northwind text overlay (for share/download).
- * Non-ImageKit URLs are returned unchanged.
- */
 export function imageKitWatermarkedUrl (url, opts = {}) {
   return imageKitOptimizedUrl(url, { ...opts, watermark: true })
 }

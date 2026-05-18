@@ -6,8 +6,6 @@ export async function uploadImageToImageKit (file, getToken, opts = {}) {
   const { folder = 'products', fileName } = opts
   const auth = await apiFetch('/api/admin/imagekit/auth', { getToken })
 
-  // replace unsafe characters with _.
-  // example: "my photo @ home.png" becomes "my_photo___home.png"
   const safeName =
     fileName ??
     (file.name.replace(/[^\w.-]/g, '_').slice(0, 200) ||
