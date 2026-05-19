@@ -9,7 +9,7 @@ import {
 import useCartPage from '../hooks/useCartPage'
 import { CartSkeleton } from '../componenets/LoadingSkeletons'
 import { PageError } from '../componenets/PageError'
-import { IK_PRESETS, imageKitOptimizedUrl } from '../lib/imagekitUrl'
+import { IK_PRESETS, imageKitOptimizedUrl } from '../lib/imageKitUrl'
 import { Link } from 'react-router'
 import { formatPrice } from '../utils/format'
 import { Show, SignInButton } from '@clerk/react'
