@@ -90,7 +90,7 @@ export async function polarWebhookHandler(req: Request, res: Response) {
         }
 
         const raw = req.body instanceof Buffer ? req.body : Buffer.from(String(req.body))
-        const wh = new Webhook(env.POLAR_WEBHOOK_SECRET)
+        const wh = new Webhook(env.POLAR_WEBHOOK_SECRET) 
 
         const id = headerString(req.headers, 'webhook-id')
         const ts = headerString(req.headers, 'webhook-timestamp')
@@ -120,15 +120,21 @@ export async function polarWebhookHandler(req: Request, res: Response) {
 
             const sessionId = checkoutSessionIdFromMetadata(data)
 
-            if(sessionId) {
-                const ok = await fulfillCheckoutSession(sessionId,polarOrderId,checkoutId)
+           
+            if(!sessionId) {
+                console.error('Polar order.paid: missing sessionId in metadata', { data })
+                res.status(400).json({ error: 'Missing session ID in metadata' })
+                return
+            }
 
-                if(ok) {
-                    res.json({ ok: true })
-                    return
-                }
+            const ok = await fulfillCheckoutSession(sessionId, polarOrderId, checkoutId)
 
-                if(await alreadyPaid(polarOrderId, checkoutId)) {
+            if(ok) {
+                res.json({ ok: true })
+                return
+            }
+
+            if(await alreadyPaid(polarOrderId, checkoutId)) {
                 res.json({ ok: true, duplicate: true })
                 return
             }
@@ -140,14 +146,16 @@ export async function polarWebhookHandler(req: Request, res: Response) {
 
             res.status(500).json({ error: 'Checkout fulfillment failed' })
             return
-            }
         }
+
+        
 
         res.json({ ok: true })
 
+        
 
     } catch (error) {
         console.error('Polar webhook error', error)
-        res.status(400).json({ error: 'Invalid webhooks' })
+        res.status(400).json({ error: 'Invalid webhook' })
     }
 }
