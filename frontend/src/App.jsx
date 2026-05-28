@@ -13,6 +13,10 @@ import CartPage from './pages/CartPage'
 import OrdersPage from './pages/OrdersPage'
 import CheckoutReturnPage from './pages/CheckoutReturnPage'
 import ProductDetailPage from './pages/ProductDetailPage'
+import { SentryDemoPage } from './pages/SentryDemoPage'
+import OrderDetailPage from './pages/OrderDetailPage'
+import OrderChatPage from './pages/OrderChatPage'
+import OrderSummaryPage from './pages/OrderSummarytPage'
 
 function App () {
   const { isLoaded, isSignedIn } = useAuth()
@@ -30,6 +34,11 @@ function App () {
           element={isSignedIn ? <OrdersPage /> : <Navigate to={'/'} replace />}
         />
         <Route path='/checkout/return' element={<CheckoutReturnPage />} />
+        <Route path='/demo-sentry' element={<SentryDemoPage />} />
+        <Route path='/orders/:id' element={<OrderDetailPage />}>
+          <Route index element={<OrderSummaryPage />} />
+          <Route path='chat' element={<OrderChatPage />} />
+        </Route>
       </Routes>
     </Layout>
   )

@@ -1,6 +1,6 @@
 import { Link } from 'react-router'
-import { ProductPageSkeleton } from '../components/LoadingSkeletons'
-import { PageError } from '../components/PageError'
+import { ProductPageSkeleton } from '../componenets/LoadingSkeletons'
+import { PageError } from '../componenets/PageError'
 import { useProductPage } from '../hooks/useProductPage'
 import {
   IK_PRESETS,

@@ -39,7 +39,7 @@ import { getStreamChatServer, streamChatDisplayName, streamUserId } from "../lib
 
         const token = server.createToken(sid)
 
-        res.json( { token, apiKey: env.STREAM_API_KEY, userId: sid } )
+        res.json( { token, apiKey: env.STREAM_API_KEY, userId: sid, name } )
     } catch (e) {
         next(e)
     }
