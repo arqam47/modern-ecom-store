@@ -20,6 +20,7 @@ const cartSchema = z.object({
 })
 
 export async function createCheckout(req: Request, res: Response, next: NextFunction) {
+    console.log('Checkout request received', { body: req.body })
     try {
         const { userId, isAuthenticated } = getAuth(req)
         if(!isAuthenticated || !userId) {
@@ -108,6 +109,7 @@ export async function createCheckout(req: Request, res: Response, next: NextFunc
 
         res.json({checkoutUrl: checkout.url})
     } catch (e) {
+        console.error('Checkout error:', e)
         next(e)
     }
 }

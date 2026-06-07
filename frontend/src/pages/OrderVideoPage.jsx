@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router'
 import useOrderVideoPage from '../hooks/useOrderVideoPage'
-import { OrderVideoSkeleton } from '../components/LoadingSkeletons'
-import { PageError } from '../components/PageError'
+import { OrderVideoSkeleton } from '../componenets/LoadingSkeletons'
+import { PageError } from '../componenets/PageError'
 import { ArrowLeftIcon, VideoIcon } from 'lucide-react'
 
 import {
