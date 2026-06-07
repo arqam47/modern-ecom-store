@@ -3,7 +3,7 @@ import { AdminProductsTableSkeleton } from '../componenets/LoadingSkeletons.jsx'
 import { PackageIcon, PencilIcon, PlusIcon, Trash2Icon } from 'lucide-react'
 import { formatPrice } from '../utils/format.js'
 import { AdminProductForm } from '../componenets/AdminProductForm.jsx'
-import { IK_PRESETS, imageKitOptimizedUrl } from '../lib/imagekitUrl.js'
+import { IK_PRESETS, imageKitOptimizedUrl } from '../lib/imageKitUrl.js'
 
 function AdminProductsPage () {
   const {
