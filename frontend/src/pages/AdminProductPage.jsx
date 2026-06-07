@@ -1,9 +1,9 @@
 import { useAdminProductsPage } from '../hooks/useAdminProductsPage.js'
 import { AdminProductsTableSkeleton } from '../componenets/LoadingSkeletons.jsx'
-import { IK_PRESETS, imageKitOptimizedUrl } from '../lib/imagekitUrl.js'
 import { PackageIcon, PencilIcon, PlusIcon, Trash2Icon } from 'lucide-react'
 import { formatPrice } from '../utils/format.js'
 import { AdminProductForm } from '../componenets/AdminProductForm.jsx'
+import { IK_PRESETS, imageKitOptimizedUrl } from '../lib/imagekitUrl.js'
 
 function AdminProductsPage () {
   const {
